@@ -33,90 +33,58 @@ public class MyNode {
 
     //todo predicate
 
-//    Predicate<MyNode> search = new Predicate<MyNode>() {
-//        @Override
-//        public boolean test(MyNode s) {
-//            return false;
-//        }
-//    };
-
-
+    public MyNode wideSearch(String name) {
+        Predicate<MyNode> predicate = (n) -> name.equals(n.getName());
+        return WS(predicate);
+    }
 
     public MyNode wideSearch(String key, String value) {
+        Predicate<MyNode> predicate = (n) -> value.equals(n.getAttr().get(key));
+        return WS(predicate);
+    }
+
+    private MyNode WS(Predicate<MyNode> predicate) {
 
         Queue<MyNode> queue = new LinkedList<MyNode>();
         queue.add(this);
-        queue.addAll(this.getChildren());
+
         while (!queue.isEmpty()) {
-            for (int i = 0; i < queue.size(); i++) {
-
-                if (queue.element().getAttr().containsKey(key) && queue.element().getAttr().containsValue(value)) {
-                    System.out.println(queue.element());
-                    return queue.element();
-                }
-                if (!queue.element().getChildren().isEmpty()) {
-                    queue.addAll(queue.element().getChildren());
-                }
-                queue.remove();
+            if (predicate.test(queue.element())) {
+                return queue.element();
+            } else {
+                queue.addAll(queue.element().getChildren());
             }
+            queue.remove();
         }
-
         return null;
     }
 
-    public MyNode wideSearch(String name) {
-        Queue<MyNode> queue = new LinkedList<MyNode>();
-        queue.add(this);
-        queue.addAll(this.getChildren());
-        while (!queue.isEmpty()) {
-            for (int i = 0; i < queue.size(); i++) {
-
-                if (queue.element().name.equals(name)) {
-                    System.out.println(queue.element());
-                    return queue.element();
-                }
-                if (!queue.element().getChildren().isEmpty()) {
-                    queue.addAll(queue.element().getChildren());
-                }
-                queue.remove();
-            }
-        }
-
+    private MyNode DS(Predicate<MyNode> predicate){
         return null;
     }
 
-    public MyNode depthSearch(String name, ChildrenList childrenList) {
+    public MyNode dept(String name){
+        rec(name,this);
+        return null;
+    }
 
-        for (MyNode myNode : childrenList) {
+    private MyNode rec(String name, MyNode myNode) {
 
             if (myNode.getName().equals(name)) {
-                System.out.println(myNode + "its");
+                System.out.println(myNode);
                 return myNode;
             }
             if (!myNode.getChildren().isEmpty()) {
-                ChildrenList childrenList1 = (ChildrenList) myNode.getChildren();
-                depthSearch(name, childrenList1);
+                ChildrenList childrenList = (ChildrenList) myNode.getChildren();
+                for (MyNode myNode1 : childrenList) {
+                rec(name,myNode1);
+                }
             }
-
-        }
         return null;
     }
 
-    public MyNode depthSearch(String key, String value, ChildrenList childrenList) {
 
-        for (MyNode myNode : childrenList) {
 
-            if (myNode.getAttr().containsKey(key) && myNode.getAttr().containsValue(value)) {
-                System.out.println(myNode + "its");
-                return myNode;
-            }
-            if (!myNode.getChildren().isEmpty()) {
-                ChildrenList childrenList1 = (ChildrenList) myNode.getChildren();
-                depthSearch(key, value, childrenList1);
-            }
-        }
-        return null;
-    }
 
     public void addChild(MyNode myNode) {
         children.add(myNode);

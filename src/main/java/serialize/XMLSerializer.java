@@ -31,7 +31,6 @@ public class XMLSerializer implements Serializer {
         factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         document = builder.newDocument();
-
         appendNode(document, myNode);
 
         Transformer t = TransformerFactory.newInstance().newTransformer();
@@ -77,7 +76,7 @@ public class XMLSerializer implements Serializer {
         document = builder.parse(file);
 
         MyNode root = new MyNode(document.getDocumentElement().getNodeName());
-        NodeList nodeList = document.getChildNodes();
+        NodeList nodeList = document.getChildNodes().item(0).getChildNodes();
         recGetNodeList(nodeList, root);
 
         return root;

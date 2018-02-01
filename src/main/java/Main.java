@@ -21,19 +21,9 @@ public class Main {
         System.out.println(myNode);
         xmlSerializer.serialize(myNode, new File("tmp1.xml"));
 
-       /* myNode.nameWideSearch("title");
-        myNode.attrWideSearch("price", "20.00");
-
-        ChildrenList childrenList = (ChildrenList) myNode.getChildren();
-        myNode.nameDepthSearch("title",childrenList);
-        myNode.attrDepthSearch("id","001",childrenList);*/
 
 
-        String key = "k";
-        String value = "lol";
-
-        Predicate<MyNode> pred = (n) -> value.equals(n.getName());
-        Predicate<MyNode>pred2 = (n) -> n.getAttr().get(key).equals(value);
+        myNode.dept("title");
 
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<catalog id="00x">
+<catalog >
     <book id="001">
         <author author="Richard Branson">
             <price price="50.00"/>
