@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog id="00x">
+    <book id="001">
+        <author author="Richard Branson">
+            <price price="50.00"/>
+        </author>
+        <title title="My Virginity"/>
+        <price priceInUSA="55.00"/>
+    </book>
+    <book id="002">
+        <author author="Sam King">
+            <price price="45.00"/>
+        </author>
+        <title title="My Friend"/>
+        <price priceInUSA="50.00"/>
+    </book>
+</catalog>
