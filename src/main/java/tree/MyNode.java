@@ -59,32 +59,38 @@ public class MyNode {
         return null;
     }
 
-    private MyNode DS(Predicate<MyNode> predicate){
-        return null;
+    public MyNode depthSearch(String key,String value){
+        Predicate<MyNode> predicate = (n) ->value.equals(n.getAttr().get(key));
+        return DS(predicate);
     }
 
-    public MyNode dept(String name){
-        rec(name,this);
-        return null;
+    public MyNode depthSearch(String name){
+        Predicate<MyNode> predicate = (n) ->name.equals(n.getName());
+        return DS(predicate);
     }
 
-    private MyNode rec(String name, MyNode myNode) {
+    private MyNode DS(Predicate<MyNode> predicate) {
+        return rec( this,predicate);
+    }
 
-            if (myNode.getName().equals(name)) {
-                System.out.println(myNode);
-                return myNode;
+    private MyNode rec( MyNode myNode,Predicate predicate) {
+
+        if (predicate.test(myNode)) {
+            return myNode;
+        }
+        if (!myNode.getChildren().isEmpty()) {
+            ChildrenList childrenList = (ChildrenList) myNode.getChildren();
+            for (MyNode myNode1 : childrenList) {
+                MyNode tmp =rec(myNode1,predicate);
+                if(tmp==null){
+                    continue;
+                }else
+                return tmp;
             }
-            if (!myNode.getChildren().isEmpty()) {
-                ChildrenList childrenList = (ChildrenList) myNode.getChildren();
-                for (MyNode myNode1 : childrenList) {
-                rec(name,myNode1);
-                }
-            }
+
+        }
         return null;
     }
-
-
-
 
     public void addChild(MyNode myNode) {
         children.add(myNode);

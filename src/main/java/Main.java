@@ -18,12 +18,9 @@ public class Main {
         XMLSerializer xmlSerializer = new XMLSerializer();
 
         MyNode myNode = xmlSerializer.deserialize(new File("tmp.xml"));
-        System.out.println(myNode);
         xmlSerializer.serialize(myNode, new File("tmp1.xml"));
 
 
-
-        myNode.dept("title");
 
 
 
