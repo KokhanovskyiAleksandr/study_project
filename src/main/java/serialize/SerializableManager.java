@@ -1,21 +1,20 @@
 
 package serialize;
-        import org.w3c.dom.Node;
-        import org.xml.sax.SAXException;
-        import tree.MyNode;
 
-        import javax.xml.parsers.ParserConfigurationException;
-        import javax.xml.transform.TransformerException;
-        import java.io.File;
-        import java.io.FileNotFoundException;
-        import java.io.IOException;
+import org.xml.sax.SAXException;
+import tree.MyNode;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import java.io.File;
+import java.io.IOException;
 
 public class SerializableManager {
 
     private Serializer serializer;
 
-    public void setStrategy(Serializer serializer){
-        this.serializer=serializer;
+    public void setStrategy(Serializer serializer) {
+        this.serializer = serializer;
     }
 
     public void serialize(MyNode node, File file) throws IOException, TransformerException, ParserConfigurationException {

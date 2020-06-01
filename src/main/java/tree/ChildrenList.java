@@ -18,19 +18,17 @@ public class ChildrenList extends ArrayList<MyNode> {
 
     @Override
     public boolean add(MyNode node) {
-        if( parent != null){
+        if (parent != null) {
             node.setParent(parent);
             node.setRoot(getRoot(node));
             return super.add(node);
-        }else
+        } else
             throw new ParentException("you have a parent");
     }
-    //    todo:foreach
+
     @Override
     public boolean addAll(Collection<? extends MyNode> c) {
-        Iterator<? extends MyNode> iterator = c.iterator();
-        while (iterator.hasNext()) {
-            MyNode tmpNode = iterator.next();
+        for (MyNode tmpNode : c) {
             tmpNode.setParent(parent);
             tmpNode.setRoot(getRoot(tmpNode));
         }

@@ -1,9 +1,11 @@
 package serialize;
 
-import org.w3c.dom.*;
-import org.w3c.dom.ls.DOMImplementationLS;
-import org.w3c.dom.ls.LSOutput;
-import org.w3c.dom.ls.LSSerializer;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import tree.ChildrenList;
 import tree.MyNode;
@@ -11,19 +13,21 @@ import tree.MyNode;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.*;
-import java.util.Date;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class XMLSerializer implements Serializer {
-    DocumentBuilderFactory factory;
-    DocumentBuilder builder;
-    Document document;
+    private DocumentBuilderFactory factory;
+    private Document document;
 
     @Override
     public void serialize(MyNode myNode, File file) throws IOException, ParserConfigurationException, TransformerException {
@@ -72,7 +76,7 @@ public class XMLSerializer implements Serializer {
     public MyNode deserialize(File file) throws ParserConfigurationException, IOException, SAXException {
 
         factory = DocumentBuilderFactory.newInstance();
-        builder = factory.newDocumentBuilder();
+        DocumentBuilder builder = factory.newDocumentBuilder();
         document = builder.parse(file);
 
         MyNode root = new MyNode(document.getDocumentElement().getNodeName());
@@ -91,7 +95,7 @@ public class XMLSerializer implements Serializer {
 
                 if (nodeList.item(i).hasAttributes()) {
                     NamedNodeMap attributes = nodeList.item(i).getAttributes();
-                    addAtribute(attributes, temp);
+                    addAttribute(attributes, temp);
                 }
                 if (nodeList.item(i).hasChildNodes()) {
                     recGetNodeList(nodeList.item(i).getChildNodes(), temp);
@@ -100,7 +104,7 @@ public class XMLSerializer implements Serializer {
         }
     }
 
-    private void addAtribute(NamedNodeMap attributes, MyNode myNode) {
+    private void addAttribute(NamedNodeMap attributes, MyNode myNode) {
 
         for (int j = 0; j < attributes.getLength(); j++) {
             Node atribute = attributes.item(j);
