@@ -10,9 +10,11 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException, TransformerException, ClassNotFoundException {
 
-        XMLSerializer xmlSerializer = new XMLSerializer();
+        File deserialize = new File(Main.class.getResource("deserialize.xml").getFile());
+        File serialize = new File(Main.class.getResource("serialize.xml").getFile());
 
-        MyNode myNode = xmlSerializer.deserialize(new File("tmp.xml"));
-        xmlSerializer.serialize(myNode, new File("tmp1.xml"));
+        XMLSerializer xmlSerializer = new XMLSerializer();
+        MyNode myNode = xmlSerializer.deserialize(deserialize);
+        xmlSerializer.serialize(myNode, serialize);
     }
 }
