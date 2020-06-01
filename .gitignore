@@ -1,7 +1,7 @@
 .metadata/
 RemoteSystemsTempFiles/
 .idea
-.iml
+*.iml
 target
 .project
 .classpath
